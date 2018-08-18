@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Flex } from 'grid-styled';
 
 const DisplayWrapper = styled(Flex)`
-  background: #414141;
+  background: rgba(255, 255, 255, 0.1);
   width: 100%;
 `
 
