@@ -2,6 +2,7 @@ import React from 'react';
 
 const ThemeContext = React.createContext({
   main: '#a3d6c8',
+  secondary: '#ff6b6b',
   light: '#fff',
   dark: '#4c4a4b'
 });
