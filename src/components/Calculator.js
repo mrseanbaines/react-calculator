@@ -10,6 +10,22 @@ const CalculatorWrapper = styled(Flex)`
 `
 
 class Calculator extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      history: 0,
+      total: 0
+    };
+  }
+
+  updateDisplay = (num) => {
+    this.setState(prevState => ({
+      history: prevState.total += num,
+      total: prevState.total += num
+    }));
+  }
+
   render() {
     return (
       <CalculatorWrapper
@@ -18,10 +34,10 @@ class Calculator extends Component {
         {...this.props}
       >
         <Flex flex="1 1 auto">
-          <Display />
+          <Display {...this.state} />
         </Flex>
         <Flex flex="2 1 auto">
-          <NumberPad />
+          <NumberPad updateDisplay={this.updateDisplay} />
         </Flex>
       </CalculatorWrapper>
     );

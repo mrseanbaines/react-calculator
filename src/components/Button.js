@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { withTheme } from '../global/theme';
 
 const ButtonWrapper = styled.button`
   font-family: inherit;
   border: none;
   text-align: center;
-  color: ${props => props.theme[props.color] || props.theme.light};
+  color: ${props => props.color};
   font-size: 2rem;
   width: 100%;
   height: 100%;
@@ -33,12 +32,17 @@ class Button extends Component {
   }
 
   render() {
+    const { value, id, updateDisplay } = this.props;
+
     return (
-      <ButtonWrapper {...this.props}>
-        {this.props.symbol}
+      <ButtonWrapper
+        onClick={() => updateDisplay(id === 'clear' ? 0 : value)}
+        {...this.props}
+      >
+        {value}
       </ButtonWrapper>
     );
   }
 }
 
-export default withTheme(Button);
+export default Button;
