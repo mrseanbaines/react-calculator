@@ -119,14 +119,16 @@ class Calculator extends Component {
         break;
 
       case 'plusMinus':
-        if (displayValue.includes('-')) {
-          this.setState(prevState => ({
-            displayValue: prevState.displayValue.replace('-', '')
-          }));
-        } else {
-          this.setState(prevState => ({
-            displayValue: '-' + prevState.displayValue
-          }));
+        if (displayValue !== '0') {
+          if (displayValue.includes('-')) {
+            this.setState(prevState => ({
+              displayValue: prevState.displayValue.replace('-', '')
+            }));
+          } else {
+            this.setState(prevState => ({
+              displayValue: '-' + prevState.displayValue
+            }));
+          }
         }
         break;
 
