@@ -6,6 +6,7 @@ const DisplayWrapper = styled(Flex)`
   background: rgba(255, 255, 255, 0.1);
   width: 100%;
   padding: 1.4em;
+  position: relative;
 `
 
 const H1 = styled.h1`
@@ -14,29 +15,24 @@ const H1 = styled.h1`
   margin: 0;
   line-height: 1;
   font-weight: 100;
-`
 
-const H3 = styled.h3`
-  color: ${props => props.theme.dark};
-  font-size: 1.5rem;
-  margin: 0;
-  line-height: 1;
-  font-weight: 300;
+  ::before {
+    content: attr(data-operator);
+    position: absolute;
+    left: 1.4rem;
+  }
 `
 
 class Display extends Component {
-  render() {
+  render = () => {
     return (
       <DisplayWrapper
         justifyContent="flex-end"
         alignItems="flex-end"
         flexDirection="column"
       >
-        <H3 {...this.props}>
-          {this.props.history}
-        </H3>
-        <H1 id="display">
-          {this.props.total}
+        <H1 data-operator={this.props.operator} id="display">
+          {this.props.displayValue}
         </H1>
       </DisplayWrapper>
     );

@@ -15,28 +15,55 @@ const ButtonWrapper = styled.button`
   outline: none;
   cursor: pointer;
 
-  :focus,
-  :active {
+  &.active {
     background: rgba(0, 0, 0, 0.1);
+    outline: none;
+  }
+
+  :active {
+    background: rgba(0, 0, 0, 0.2);
     outline: none;
   }
 `
 
 class Button extends Component {
-  componentWillMount() {
-    window.addEventListener('click', this.blur);
+  componentWillMount = () => {
+    window.addEventListener('keydown', (e) => this.handleKeydown(e));
   }
 
-  blur(e) {
-    e.target.blur()
+  componentDidMount = () => {
+    const numberPad = document.getElementById('number-pad');
+    numberPad.addEventListener('click', this.blur);
   }
 
-  render() {
-    const { value, id, updateDisplay } = this.props;
+  handleKeydown = (e) => {
+    const { value, type, handleKeyPress } = this.props;
+
+    if (e.key === value || e.key === type) {
+      handleKeyPress(value, type);
+    } else if (e.key === '*') {
+      handleKeyPress('x', 'operator');
+    } else if (e.key === '/') {
+      handleKeyPress('÷', 'operator');
+    } else if (e.key === 'Enter') {
+      handleKeyPress('=', 'equals');
+    } else if (e.key === 'Escape') {
+      handleKeyPress(null, 'clear');
+    }
+  }
+
+  blur = (e) => {
+    const button = e.target.closest('button');
+    button.blur();
+  }
+
+  render = () => {
+    const { value, type, handleKeyPress, operator } = this.props;
 
     return (
       <ButtonWrapper
-        onClick={() => updateDisplay(id === 'clear' ? 0 : value)}
+        className={(operator === value) && 'active'}
+        onClick={() => handleKeyPress(value, type)}
         {...this.props}
       >
         {value}
